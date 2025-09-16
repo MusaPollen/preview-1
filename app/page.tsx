@@ -24,12 +24,12 @@ export default function Home() {
   const [isVisible, setIsVisible] = React.useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget));
-    console.log(data)
-    setSubmitted(data);
-  };
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   const data = Object.fromEntries(new FormData(e.currentTarget));
+  //   console.log(data)
+  //   setSubmitted(data);
+  // };
 
   return (
     <>
@@ -100,7 +100,8 @@ export default function Home() {
               <p className="text-lg text-purple-600 font-bold">SIGN IN</p>
               <Tabs aria-label="Options" size="lg" radius="full" color="secondary">
                 <Tab key="ibank" title="IBank">
-                  <Form onSubmit={onSubmit}>
+                  {/* <Form onSubmit={onSubmit}> */}
+                  <Form>
                     <div className="flex flex-col gap-y-4">
                       <Input
                         name="username"
@@ -131,14 +132,14 @@ export default function Home() {
                         placeholder="Password"
                         type={isVisible ? "text" : "password"}
                       />
-                      <Button color="secondary" variant="ghost" type="submit">
+                      <Button color="secondary" type="submit">
                         Submit
                       </Button>
-                      {submitted && (
+                      {/* {submitted && (
                         <div className="text-small text-default-500">
                           You submitted: <code>{JSON.stringify(submitted)}</code>
                         </div>
-                      )}
+                      )} */}
                     </div>
                   </Form>
                 </Tab>
