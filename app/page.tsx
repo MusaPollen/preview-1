@@ -41,15 +41,15 @@ export default function Home() {
 
 
 
-      have to change logo size later
+      
       {/* nav area */}
-      <section className="flex flex-col sm:flex-row flex-wrap items-center justify-center p-4">
+      <section className="flex flex-col sm:flex-row flex-wrap items-center justify-center p-2">
         {/* <div className="w-1/2 aspect-[4/1]"> */}
         <div className="w-1/2">
           <Image
             alt="HeroUI hero Image"
             src="/images/logo_sebl.png"
-            className="object-contain"
+            className="object-contain scale-70"
           />
         </div>
         {/* hidden sm: (test by adding before..)*/}
@@ -58,8 +58,7 @@ export default function Home() {
           <Image
             alt="HeroUI hero Image"
             src="/images/instapay_name.png"
-
-            className="h-auto w-auto"
+            className="h-auto w-auto scale-70"
           />
         </div>
       </section>
