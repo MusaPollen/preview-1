@@ -41,7 +41,7 @@ export default function Home() {
 
 
 
-      
+
       {/* nav area */}
       <section className="flex flex-col sm:flex-row flex-wrap items-center justify-center p-2">
         {/* <div className="w-1/2 aspect-[4/1]"> */}
@@ -92,7 +92,7 @@ export default function Home() {
 
 
         {/* login form card */}
-        <Card isFooterBlurred className="col-span-12 sm:col-span-5 row-span-2 bg-white/10 backdrop-blur-md" radius='none'>
+        <Card isFooterBlurred className="col-span-12 sm:col-span-5 row-span-2 bg-white/20 backdrop-blur-none" radius='none'>
           <Tabs aria-label="Options" variant='underlined' color='primary' className="flex w-full flex-col items-end">
             {/* ENGLISH */}
             <Tab key="english" title="English" className="flex flex-col items-center">
@@ -168,15 +168,30 @@ export default function Home() {
 
 
 
+        {/* Card isFooterBlurred className="col-span-12 sm:col-span-5 row-span-2 bg-white/20 backdrop-blur-none" radius='none' */}
+        <Card className="col-span-12 sm:col-span-7 h-[200px] bg-white/20 backdrop-blur-none" radius='none'>
+          <CardBody className="flex justify-center items-center h-full w-full">
+            <div className="flex flex-col items-center">
+              <p className="text-sm text-purple-600">Helpline : 16206 or 8809612316206</p>
+              <p className="text-sm text-purple-600">Email : ibank@southeastbank.com.bd</p>
+              <p className="text-sm text-purple-600">Recommended Browsers : (Latest)</p>
+              
+            </div>
+          </CardBody>
 
-        <Card className="col-span-12 sm:col-span-7 h-[200px]" radius='none'>
-          <Image
-            radius='none'
-            removeWrapper
-            alt="Card background"
-            className="z-0 w-full h-full object-cover"
-            src="/images/output.png"
-          />
+          <CardBody className="flex justify-center items-center h-full w-full">
+            <div className="flex items-center">
+              <p className="text-sm text-purple-600">ATM/Branch Locations | </p>
+              <p className="text-sm text-purple-600">| Registration Form | </p>
+              <p className="text-sm text-purple-600">| Amendment Form | </p>
+              <p className="text-sm text-purple-600">| T&C | </p>
+              <p className="text-sm text-purple-600">| FAQ </p>
+
+
+              
+            </div>
+          </CardBody>
+
         </Card>
       </div>
 
