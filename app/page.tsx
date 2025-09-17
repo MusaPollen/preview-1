@@ -14,6 +14,7 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { EyeIcon } from '@heroicons/react/24/outline';
 import { EyeSlashIcon } from '@heroicons/react/24/outline';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
+import Link from "next/link";
 
 
 
@@ -132,8 +133,13 @@ export default function Home() {
                         type={isVisible ? "text" : "password"}
                       />
                       <Button color="secondary" type="submit">
-                        Submit
+                        Log In
                       </Button>
+                      <Link href="/dashboard">
+                        <Button color="secondary">
+                          Force Log In
+                        </Button>
+                      </Link>
                       {/* {submitted && (
                         <div className="text-small text-default-500">
                           You submitted: <code>{JSON.stringify(submitted)}</code>
@@ -175,7 +181,7 @@ export default function Home() {
               <p className="text-sm text-purple-600">Helpline : 16206 or 8809612316206</p>
               <p className="text-sm text-purple-600">Email : ibank@southeastbank.com.bd</p>
               <p className="text-sm text-purple-600">Recommended Browsers : (Latest)</p>
-              
+
             </div>
           </CardBody>
 
@@ -188,7 +194,7 @@ export default function Home() {
               <p className="text-sm text-purple-600">| FAQ </p>
 
 
-              
+
             </div>
           </CardBody>
 
