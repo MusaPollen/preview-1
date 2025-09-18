@@ -78,7 +78,7 @@ export default function Home() {
 
       <div className="gap-0 grid grid-cols-12 px-8 lg:px-48">
         {/* <div className="max-w-[1900px] gap-2 grid grid-cols-12 grid-rows-3 px-0"> */}
-        <Card isFooterBlurred className="w-full h-[200px] col-span-12 sm:col-span-7" radius='none'>
+        <Card isFooterBlurred className="w-full h-[35vh] col-span-12 sm:col-span-7" radius="none">
           <Image
             radius='none'
             removeWrapper
@@ -175,7 +175,8 @@ export default function Home() {
 
 
         {/* Card isFooterBlurred className="col-span-12 sm:col-span-5 row-span-2 bg-white/20 backdrop-blur-none" radius='none' */}
-        <Card className="col-span-12 sm:col-span-7 h-[200px] bg-white/20 backdrop-blur-none" radius='none'>
+        {/* <Card isFooterBlurred className="w-full h-[40vh] col-span-12 sm:col-span-7" radius="none"> */}
+        <Card className="col-span-12 sm:col-span-7 h-[35vh] bg-white/20 backdrop-blur-none" radius='none'>
           <CardBody className="flex justify-center items-center h-full w-full">
             <div className="flex flex-col items-center">
               <p className="text-sm text-purple-600">Helpline : 16206 or 8809612316206</p>
