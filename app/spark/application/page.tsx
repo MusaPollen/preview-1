@@ -18,11 +18,10 @@ export default function Home() {
         accountType: "",
         accountType2: "",
         email: "",
-        phone: "5555",
-        section1input1: "", // new field..
-        section1input2: "",
-        section2input1: "",
-        section2input2: "",
+        phone: "", // new field..
+        // section1input2: "",
+        // section2input1: "",
+        // section2input2: "",
         section3input1: "",
         section3input2: "",
         section4input1: "",
@@ -147,21 +146,29 @@ export default function Home() {
                         {/* Step 1 Form */}
                         {step === 1 && (
                             <div className="space-y-4">
+                                <br></br>
+                                <p className="flex justify-center text-3xl font-bold">Let's Get Started! 🚀</p>
+                                <p className="flex justify-center text-xl">Enter your phone number to begin your SPARK journey</p>
+
                                 <Input
-                                    label="section1input1"
-                                    name="section1input1"
-                                    value={formData.section1input1}
-                                    onChange={handleChange}
-                                />
-                                <Input
-                                    label="section1input2"
-                                    name="section1input2"
-                                    value={formData.section1input2}
-                                    onChange={handleChange}
+                                    isClearable
+                                    name="phone"
+                                    value={formData.phone}
+                                    label="Phone Number"
+                                    color="secondary"
+                                    variant="bordered"
+                                    type="tel"
+                                    maxLength={11}
+                                    isInvalid={formData.phone.length > 0 && formData.phone.length !== 11}
+                                    errorMessage="Phone number must be exactly 11 digits."
+                                    onValueChange={(value) => {
+                                        const onlyDigits = value.replace(/\D/g, "");
+                                        setFormData({ ...formData, phone: onlyDigits });
+                                    }}
                                 />
 
                                 {showSpinner ? (
-                                    <Spinner className="flex justify-center" label="Loading...(sending OTP)" color="danger" size="lg" />
+                                    <Spinner className="flex justify-center" label="Sending OTP to the Mobile Number..." color="danger" size="lg" />
                                 ) : (
                                     <Button
                                         color="primary"
@@ -171,10 +178,21 @@ export default function Home() {
                                             setTimeout(() => {
                                                 setShowSpinner(false);
                                                 setStep(2);
-                                            }, 1000);
+                                                // ✅ Show HeroUI toast here
+                                                addToast({
+                                                    title: "OTP Sent!",
+                                                    description: "We have sent an OTP to your phone number.",
+                                                    color: "success",
+                                                    classNames: {
+                                                        base: "bg-green-100 border border-green-300",
+                                                        title: "text-green-800 font-semibold",
+                                                        description: "text-green-700",
+                                                    },
+                                                });
+                                            }, 3000);
                                         }}
                                     >
-                                        Next
+                                        Send OTP
                                     </Button>
                                 )}
                             </div>
@@ -197,19 +215,36 @@ export default function Home() {
                         {/* Step 2 Form */}
                         {step === 2 && (
                             <div className="space-y-4">
+                                <br></br>
+                                <p className="flex justify-center text-2xl font-bold">Kindly verify your mobile number to continue ℹ️</p>
+                                <p className="flex justify-center text-xl">Enter the OTP you just received</p>
+
+
+
+
+
+
+
+
+                                {/* otp input */}
                                 <Input
-                                    label="section2input1"
-                                    name="section2input1"
-                                    value={formData.section2input1}
-                                    onChange={handleChange}
+                                    name="phone"
+                                    // value={formData.phone}
+                                    label="6 digit OTP"
+                                    color="secondary"
+                                    variant="bordered"
+                                    type="tel"
+                                    maxLength={6}
+                                // isInvalid={formData.phone.length > 0 && formData.phone.length !== 11}
+                                // errorMessage="Phone number must be exactly 11 digits."
+                                // onValueChange={(value) => {
+                                //     const onlyDigits = value.replace(/\D/g, "");
+                                //     setFormData({ ...formData, phone: onlyDigits });
+                                // }}
                                 />
-                                <Input
-                                    label="section2input2"
-                                    name="section2input2"
-                                    type="section2input2"//????????????????
-                                    value={formData.section2input2}
-                                    onChange={handleChange}
-                                />
+
+
+
                                 <div className="flex justify-center w-full">
                                     <ButtonGroup className="w-full">
                                         <Button className="flex-1" color="primary" variant="ghost" size="lg" onPress={() => setStep(1)}>
@@ -223,7 +258,7 @@ export default function Home() {
                                                 setStep(3);             // go directly to Step 3
                                             }}
                                         >
-                                            Next ▷
+                                            CONTINUE ▷
                                         </Button>
                                     </ButtonGroup>
                                 </div>
