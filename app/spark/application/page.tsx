@@ -7,6 +7,9 @@ import { Divider } from "@heroui/react";
 
 import { Spinner } from "@heroui/react";
 import { Select, SelectItem } from "@heroui/react";
+import { DateInput } from "@heroui/date-input";
+import { DatePicker } from "@heroui/react";
+import { CalendarDate } from "@internationalized/date";
 
 export default function Home() {
     const [step, setStep] = useState(1);
@@ -18,13 +21,17 @@ export default function Home() {
         lastName: "",
         accountType: "",
         accountType2: "",
-        email: "",
+
         phone: "", // new field..
-        // section1input2: "",
-        // section2input1: "",
-        // section2input2: "",
-        section3input1: "",
-        section3input2: "",
+        fullname: "",
+        dateofbirth: null as CalendarDate | null,
+        fathersname: "",
+        mothersname: "",
+        email: "",
+        presentaddress: "",
+        permanentaddress: "",
+        nid: "",
+        passport: "",
         section4input1: "",
         section4input2: "",
         section5input1: "",
@@ -174,7 +181,7 @@ export default function Home() {
                                         className="max-w-[200]"
                                         radius="full"
                                         color="success"
-                                        // defaultSelectedKeys={["spark"]}
+                                        defaultSelectedKeys={["spark"]}
                                         disabledKeys={["bichokkhon", "udoy"]}
                                         label="Choose Product"
                                     >
@@ -210,7 +217,7 @@ export default function Home() {
                                     <Button
                                         color="primary"
                                         className="w-full"
-                                        disabled={!formData.phone || formData.phone.length !== 11}
+                                        isDisabled={!formData.phone || formData.phone.length !== 11}
                                         onPress={() => {
                                             setShowSpinner(true);
                                             setTimeout(() => {
@@ -330,16 +337,88 @@ export default function Home() {
 
                                 <Input
                                     variant="underlined"
-                                    label="section3input1"
-                                    name="section3input1"
-                                    value={formData.section3input1}
+                                    label="Full Name"
+                                    name="fullname"
+                                    value={formData.fullname}
+                                    onChange={handleChange}
+                                />
+
+
+                                <DatePicker
+                                    showMonthAndYearPickers
+                                    variant="underlined"
+                                    label="Date Of Birth"
+                                    name="dateofbirth"
+                                    value={formData.dateofbirth}
+                                    onChange={(selectedDate) => {
+                                        setFormData({ ...formData, dateofbirth: selectedDate });
+                                    }}
+                                />
+
+
+                                <Input
+                                    variant="underlined"
+                                    label="Father's Name"
+                                    name="fathersname"
+                                    value={formData.fathersname}
+                                    onChange={handleChange}
+                                />
+
+
+
+                                <Input
+                                    variant="underlined"
+                                    label="Mother's Name"
+                                    name="mothersname"
+                                    value={formData.mothersname}
+                                    onChange={handleChange}
+                                />
+                                <Input
+                                    isReadOnly
+                                    color="success"
+                                    radius="none"
+                                    variant="flat"
+                                    label="Mobile Number"
+                                    name="phone"
+                                    value={formData.phone}
                                     onChange={handleChange}
                                 />
                                 <Input
                                     variant="underlined"
-                                    label="section3input2"
-                                    name="section3input2"
-                                    value={formData.section3input2}
+                                    label="Email Address"
+                                    name="email"
+                                    type="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                />
+                                <Input
+                                    variant="underlined"
+                                    label="Present Address"
+                                    name="presentaddress"
+                                    placeholder="House/Flat, Road, Area, City"
+                                    value={formData.presentaddress}
+                                    onChange={handleChange}
+                                />
+                                <Input
+                                    variant="underlined"
+                                    label="Permanent Address"
+                                    name="permanentaddress"
+                                    placeholder="House/Flat, Road, Area, City"
+                                    value={formData.permanentaddress}
+                                    onChange={handleChange}
+                                />
+                                <Input
+                                    variant="underlined"
+                                    label="National ID (NID) Number "
+                                    name="nid"
+                                    value={formData.nid}
+                                    onChange={handleChange}
+                                />
+                                <Input
+                                    variant="underlined"
+                                    label="Passport Number (Optional)"
+                                    name="passport"
+                                    value={formData.passport}
                                     onChange={handleChange}
                                 />
 
