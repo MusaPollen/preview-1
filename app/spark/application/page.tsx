@@ -147,7 +147,7 @@ export default function Home() {
                         {step === 1 && (
                             <div className="space-y-4">
                                 <br></br>
-                                <p className="flex justify-center text-3xl font-bold">Let&apos; Get Started! 🚀</p>
+                                <p className="flex justify-center text-3xl font-bold">Let&apos;s Get Started! 🚀</p>
                                 <p className="flex justify-center text-xl">Enter your phone number to begin your SPARK journey</p>
 
                                 <Input
@@ -173,6 +173,7 @@ export default function Home() {
                                     <Button
                                         color="primary"
                                         className="w-full"
+                                        disabled={!formData.phone || formData.phone.length !== 11}
                                         onPress={() => {
                                             setShowSpinner(true);
                                             setTimeout(() => {
