@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Button, Input, Progress, Card, CardBody, CardHeader, ButtonGroup } from "@heroui/react";
-import { Alert } from "@heroui/react";
+import { Alert, Image } from "@heroui/react";
 import { addToast, cn } from "@heroui/react";
 import { Divider } from "@heroui/react";
 
@@ -72,6 +72,31 @@ export default function Home() {
 
     return (
         <>
+
+
+            {/* nav area */}
+            <section className="flex flex-col sm:flex-row flex-wrap items-center justify-center p-2">
+                {/* <div className="w-1/2 aspect-[4/1]"> */}
+                <div className="w-1/2">
+                    <Image
+                        alt="HeroUI hero Image"
+                        src="/images/logo_sebl.png"
+                        className="object-contain scale-70"
+                    />
+                </div>
+                {/* hidden sm: (test by adding before..)*/}
+                {/* <div className="flex w-1/2 aspect-[4/1] justify-end"> */}
+                <div className="flex w-1/2 justify-end">
+                    <Image
+                        alt="HeroUI hero Image"
+                        src="/images/instapay_name.png"
+                        className="h-auto w-auto scale-70"
+                    />
+                </div>
+            </section>
+            {/* nav area */}
+
+
             <div className="max-w-3xl mx-auto p-6 space-y-6">
                 <Card isFooterBlurred className="bg-white/40 backdrop-blur-none" radius='lg'>
                     <CardHeader className="flex justify-center">
@@ -285,7 +310,13 @@ export default function Home() {
                         {/* Step 3 Form */}
                         {step === 3 && (
                             <div className="space-y-4">
+
+                                <br></br>
+                                <p className="flex justify-center text-3xl font-bold">Tell Us About You 🧑‍🎓</p>
+                                <p className="flex justify-center text-xl">We need some basic information to set up your account</p>
+
                                 <Input
+                                    variant="underlined"
                                     label="section3input1"
                                     name="section3input1"
                                     value={formData.section3input1}
