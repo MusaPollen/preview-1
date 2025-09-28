@@ -100,15 +100,15 @@ export default function Home() {
                         {/* steps.. */}
                         <div className="flex flex-wrap justify-center items-center p-4">
                             <span className={`font-bold ${step >= 1 ? "text-purple-800" : "text-gray-400"}`}>Get Started</span>
-                            ➡️
+                            <span className="mx-3">➡️</span>
                             <span className={`font-bold ${step >= 2 ? "text-purple-800" : "text-gray-400"}`}>Verify Phone</span>
-                            ➡️
+                            <span className="mx-3">➡️</span>
                             <span className={`font-bold ${step >= 3 ? "text-purple-800" : "text-gray-400"}`}>Details</span>
-                            ➡️
+                            <span className="mx-3">➡️</span>
                             <span className={`font-bold ${step >= 4 ? "text-purple-800" : "text-gray-400"}`}>Documents</span>
-                            ➡️
+                            <span className="mx-3">➡️</span>
                             <span className={`font-bold ${step >= 5 ? "text-purple-800" : "text-gray-400"}`}>Summary</span>
-                            ➡️
+                            <span className="mx-3">➡️</span>
                             <span className={`font-bold ${step >= 6 ? "text-purple-800" : "text-gray-400"}`}>🎉COMPLETE🎉</span>
                         </div>
 
