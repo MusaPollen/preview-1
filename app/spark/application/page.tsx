@@ -6,6 +6,7 @@ import { addToast, cn } from "@heroui/react";
 import { Divider } from "@heroui/react";
 
 import { Spinner } from "@heroui/react";
+import { Select, SelectItem } from "@heroui/react";
 
 export default function Home() {
     const [step, setStep] = useState(1);
@@ -72,8 +73,6 @@ export default function Home() {
 
     return (
         <>
-
-
             {/* nav area */}
             <section className="flex flex-col sm:flex-row flex-wrap items-center justify-center p-2">
                 {/* <div className="w-1/2 aspect-[4/1]"> */}
@@ -95,7 +94,6 @@ export default function Home() {
                 </div>
             </section>
             {/* nav area */}
-
 
             <div className="max-w-3xl mx-auto p-6 space-y-6">
                 <Card isFooterBlurred className="bg-white/40 backdrop-blur-none" radius='lg'>
@@ -141,10 +139,6 @@ export default function Home() {
 
 
 
-
-
-
-
                         {/* alert trigger */}
                         {showAlert && (
                             <Alert
@@ -175,13 +169,31 @@ export default function Home() {
                                 <p className="flex justify-center text-3xl font-bold">Let&apos;s Get Started! 🚀</p>
                                 <p className="flex justify-center text-xl">Enter your phone number to begin your SPARK journey</p>
 
+                                <div className="flex justify-end">
+                                    <Select
+                                        className="max-w-[200]"
+                                        radius="full"
+                                        color="success"
+                                        // defaultSelectedKeys={["spark"]}
+                                        disabledKeys={["bichokkhon", "udoy"]}
+                                        label="Choose Product"
+                                    >
+
+                                        <SelectItem key="spark">SPARK</SelectItem>
+                                        <SelectItem key="anannaya">ANANNAYA</SelectItem>
+                                        <SelectItem key="bichokkhon">BICHOKKHON</SelectItem>
+                                        <SelectItem key="udoy">UDOY</SelectItem>
+
+                                    </Select>
+                                </div>
+
                                 <Input
                                     isClearable
                                     name="phone"
+                                    radius="none"
                                     value={formData.phone}
-                                    label="Phone Number"
-                                    color="secondary"
-                                    variant="bordered"
+                                    label="Enter Phone Number"
+                                    variant="faded"
                                     type="tel"
                                     maxLength={11}
                                     isInvalid={formData.phone.length > 0 && formData.phone.length !== 11}
@@ -257,8 +269,9 @@ export default function Home() {
                                     name="phone"
                                     // value={formData.phone}
                                     label="6 digit OTP"
-                                    color="secondary"
-                                    variant="bordered"
+                                    // color="success"
+                                    variant="faded"
+                                    radius="none"
                                     type="tel"
                                     maxLength={6}
                                 // isInvalid={formData.phone.length > 0 && formData.phone.length !== 11}
@@ -323,6 +336,7 @@ export default function Home() {
                                     onChange={handleChange}
                                 />
                                 <Input
+                                    variant="underlined"
                                     label="section3input2"
                                     name="section3input2"
                                     value={formData.section3input2}
