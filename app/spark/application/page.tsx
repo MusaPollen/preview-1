@@ -44,6 +44,7 @@ export default function Home() {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        console.log(formData);
     };
 
     const handleSubmit = () => {
@@ -81,7 +82,7 @@ export default function Home() {
     return (
         <>
             {/* nav area */}
-            <section className="flex flex-col sm:flex-row flex-wrap items-center justify-center p-2">
+            <section className="flex flex-col sm:flex-row flex-wrap items-center justify-center p-0">
                 {/* <div className="w-1/2 aspect-[4/1]"> */}
                 <div className="w-1/2">
                     <Image
@@ -102,7 +103,7 @@ export default function Home() {
             </section>
             {/* nav area */}
 
-            <div className="max-w-3xl mx-auto p-6 space-y-6">
+            <div className="max-w-3xl mx-auto p-1 space-y-1">
                 <Card isFooterBlurred className="bg-white/40 backdrop-blur-none" radius='lg'>
                     <CardHeader className="flex justify-center">
                         <span className="text-3xl text-purple-900 font-bold">
@@ -234,7 +235,7 @@ export default function Home() {
                                                         description: "text-green-700",
                                                     },
                                                 });
-                                            }, 3000);
+                                            }, 1500);
                                         }}
                                     >
                                         Send OTP
@@ -274,19 +275,11 @@ export default function Home() {
                                 {/* otp input */}
                                 <Input
                                     name="phone"
-                                    // value={formData.phone}
                                     label="6 digit OTP"
-                                    // color="success"
                                     variant="faded"
                                     radius="none"
                                     type="tel"
                                     maxLength={6}
-                                // isInvalid={formData.phone.length > 0 && formData.phone.length !== 11}
-                                // errorMessage="Phone number must be exactly 11 digits."
-                                // onValueChange={(value) => {
-                                //     const onlyDigits = value.replace(/\D/g, "");
-                                //     setFormData({ ...formData, phone: onlyDigits });
-                                // }}
                                 />
 
 
@@ -301,6 +294,7 @@ export default function Home() {
                                             className="flex-1"
                                             color="primary"
                                             size="lg"
+                                            // isDisabled=?
                                             onPress={() => {
                                                 setStep(3);             // go directly to Step 3
                                             }}
