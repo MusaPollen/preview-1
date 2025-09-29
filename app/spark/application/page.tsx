@@ -17,11 +17,6 @@ export default function Home() {
     const [showAlert, setShowAlert] = useState(false);
     const [showSpinner, setShowSpinner] = useState(false);
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        accountType: "",
-        accountType2: "",
-
         phone: "", // new field..
         fullname: "",
         dateofbirth: null as CalendarDate | null,
@@ -37,10 +32,10 @@ export default function Home() {
         section5input1: "",
         section5input2: "",
         section6input1: "",
-        section6input2: "",
-
-
+        section6input2: ""
     });
+
+    const [otp, setotp] = useState({ otp: "" });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -258,7 +253,7 @@ export default function Home() {
 
 
 
-                        {/* Step 2 Form */}
+                        {/* Step 2 Form , enter otp*/}
                         {step === 2 && (
                             <div className="space-y-4">
                                 <br></br>
@@ -274,16 +269,18 @@ export default function Home() {
 
                                 {/* otp input */}
                                 <Input
-                                    name="phone"
-                                    label="6 digit OTP"
-                                    variant="faded"
+                                    name="otp"
                                     radius="none"
+                                    value={otp.otp}
+                                    label="Enter 6 digit OTP"
+                                    variant="faded"
                                     type="tel"
                                     maxLength={6}
+                                    onValueChange={(value) => {
+                                        const onlyDigits = value.replace(/\D/g, "");
+                                        setotp({ ...otp, otp: onlyDigits });
+                                    }}
                                 />
-
-
-
 
                                 <div className="flex justify-center w-full">
                                     <ButtonGroup className="w-full">
@@ -292,11 +289,11 @@ export default function Home() {
                                         </Button>
                                         <Button
                                             className="flex-1"
+                                            isDisabled={!otp.otp || otp.otp.length !== 6}
                                             color="primary"
                                             size="lg"
-                                            // isDisabled=?
                                             onPress={() => {
-                                                setStep(3);             // go directly to Step 3
+                                                setStep(3);            // go directly to Step 3
                                             }}
                                         >
                                             CONTINUE ▷
