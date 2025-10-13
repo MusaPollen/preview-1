@@ -8,6 +8,7 @@ import {
     Alert, Image, addToast, cn, Divider, Spinner, Select, SelectItem,
     Tooltip, DatePicker
 } from "@heroui/react";
+import { FormDataType } from "./page";
 
 // --- Type Definitions for Props ---
 // This interface defines the expected structure of data passed from the parent component (page.tsx).
@@ -16,10 +17,10 @@ type NomineeInformationProps = {
     /**
      * The central state object containing all form data from the parent.
      * The child component READS data from this object to populate input fields.
-     * We use Record<string, any> to allow for dynamic field names across the multi-step form.
+     * 
      */
-    formData: Record<string, any>; 
-    
+    formData: FormDataType;
+
     /**
      * The callback function used to update the central 'formData' state in the parent.
      * This adheres to the "Lifting State Up" pattern in React.
@@ -36,14 +37,14 @@ type NomineeInformationProps = {
  * - Uses 'handleChange' to update parent state, ensuring a Single Source of Truth.
  */
 export default function NomineeInformation({ formData, handleChange }: NomineeInformationProps) {
-    
+
     // Developer Note: Since this component is meant to be dynamically rendered
     // based on an API call, its data fields (section6input1, etc.) must match
     // the keys defined in the parent's `formData` state.
 
     return (
         <div className="space-y-4 p-4 border rounded-lg bg-white shadow-sm">
-            
+
             <h1 className="text-2xl font-bold text-gray-800 border-b pb-2">Nominee Details Entry</h1>
 
             {/* Input Field 1: Nominee Name/Detail */}
@@ -51,12 +52,12 @@ export default function NomineeInformation({ formData, handleChange }: NomineeIn
                 label="Nominee Information Field 1 (e.g., Full Name)"
                 // The 'name' attribute MUST match a key in the parent's formData state 
                 // for the universal 'handleChange' function to work correctly.
-                name="section6input1" 
+                name="section6input1"
                 // The 'value' is READ from the parent's state (formData)
                 value={formData.section6input1 || ""} // Use || "" to handle null/undefined safely
                 // The 'onChange' calls the parent's handleChange function, passing the event.
                 // This is how data is "PUSHED" up to the parent.
-                onChange={handleChange} 
+                onChange={handleChange}
                 variant="underlined"
             />
 
