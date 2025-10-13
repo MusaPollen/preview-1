@@ -59,16 +59,6 @@ export default function Home() {
                 ]),
                 icon: "w-6 h-6 fill-current",
             },
-            endContent: (
-                <div className="ms-11 my-2 flex gap-x-2">
-                    <Button color={"primary"} size="sm" variant="bordered">
-                        View Document
-                    </Button>
-                    <Button className="underline-offset-2" color={"primary"} size="sm" variant="light">
-                        Maybe Later
-                    </Button>
-                </div>
-            ),
             color: "primary",
         })
 
@@ -76,33 +66,35 @@ export default function Home() {
 
     return (
         <>
-            {/* nav area */}
-            <section className="flex flex-col sm:flex-row flex-wrap items-center justify-center p-0">
-                {/* <div className="w-1/2 aspect-[4/1]"> */}
-                <div className="w-1/2">
-                    <Image
-                        alt="HeroUI hero Image"
-                        src="/images/logo_sebl.png"
-                        className="object-contain scale-70"
-                    />
-                </div>
-                {/* hidden sm: (test by adding before..)*/}
-                {/* <div className="flex w-1/2 aspect-[4/1] justify-end"> */}
-                <div className="flex w-1/2 justify-end">
-                    <Image
-                        alt="HeroUI hero Image"
-                        src="/images/instapay_name.png"
-                        className="h-auto w-auto scale-70"
-                    />
-                </div>
-            </section>
-            {/* nav area */}
 
-            <div className="max-w-3xl mx-auto p-1 space-y-1">
+            <div className="max-w-3xl mx-auto p-1 space-y-1 bg-white rounded-lg">
+                <div className="flex justify-center">
+
+                    <Image
+                        isBlurred
+                        width={500}
+                        height={100}
+                        src="https://www.southeastbank.com.bd/images/logo/logo_sebplc_new.jpg"
+                        alt="SEBL Logo"
+                        className="z-0 w-full h-full object-cover"
+                        radius="none"
+                    />
+                    <Image
+                        isBlurred
+                        width={150}
+                        height={100}
+                        src="https://cdn.prod.website-files.com/677b6bb4f4d7d19e2c0575a9/6857d01a4b0cc9c2995ee763_Logo%20Icon-26.svg"
+                        alt="BIDA Logo"
+                        className="z-0 w-full h-full object-cover"
+                        radius="none"
+                    />
+                </div>
                 <Card isFooterBlurred className="bg-white/40 backdrop-blur-none" radius='lg'>
                     <CardHeader className="flex justify-center">
+
+
                         <span className="text-3xl text-purple-900 font-bold">
-                            ✨SPARK Application
+                            Bida Test Application
                         </span>
                     </CardHeader>
                     <CardBody>
@@ -169,8 +161,9 @@ export default function Home() {
                         {step === 1 && (
                             <div className="space-y-4">
                                 <br></br>
+
                                 <p className="flex justify-center text-3xl font-bold">Let&apos;s Get Started! 🚀</p>
-                                <p className="flex justify-center text-xl">Enter your phone number to begin your SPARK journey</p>
+                                <p className="flex justify-center text-xl">Enter your phone number to begin your BIDA journey</p>
 
                                 <div className="flex justify-end">
                                     <Select
