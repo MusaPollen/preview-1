@@ -23,7 +23,7 @@ import ContactInformation from "./ContactInformation";
 // ██   ██     ██  ██ ██     ██   ██ 
 // ██   ██     ██   ████     ██████  
 
-type FormDataType = {
+export type FormDataType = {
     product: string;
     phone: string;
     fullname: string;

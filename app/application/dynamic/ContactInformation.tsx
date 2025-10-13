@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import { Input } from "@heroui/react";
+import { FormDataType } from "./page";
 
 // --- Type Definitions for Props ---
 type ContactInformationProps = {
-    formData: Record<string, any>; // The central state object passed from the parent (READ access).
+    formData: FormDataType; // The central state object passed from the parent (READ access).
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // The state setter function for updating parent's formData (WRITE access).
 };
 
