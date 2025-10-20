@@ -151,11 +151,13 @@ export async function getSession(): Promise<{ apiResponse: string } | { error: s
             return { error: `Decryption error: ${String(decErr)}` };
         }
 
-    } catch (err: any) {
+    } catch (err: unknown) {
         console.error("Error in getSession:", err);
 
-        // return an error object
-        return { error: err.message || "Unknown error" };
+        let message = "Unknown error";
+        if (err instanceof Error) message = err.message;
+
+        return { error: message };
     }
 }
 
