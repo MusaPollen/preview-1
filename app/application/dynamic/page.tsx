@@ -259,9 +259,16 @@ export default function Home() {
 
 
 
+    type Product = {
+        ProductID: string;
+        ProductName: string;
+        TotalSteps: number;
+        StepNames: string;
+    };
+
 
     // api call
-    const [product, setproduct] = useState<any[]>([]);
+    const [product, setproduct] = useState<Product[]>([]);
     const [loading, setLoading] = useState(false);
 
     const [sectionsFromAPI, setSectionsFromAPI] = useState<string[]>([]); //to store the provided step names from the api
@@ -343,7 +350,7 @@ export default function Home() {
 
                     <CardHeader className="flex justify-center">
                         <span className="text-3xl text-purple-900 font-bold">
-                            <p>(from api - {product[0]?.productName || "N/A"})</p>
+                            <p>(from api - {product[0]?.ProductName || "N/A"})</p>
                             {formData.product} Application Form
                         </span>
                         {/* showing the reset button */}
@@ -384,7 +391,7 @@ export default function Home() {
                                     }}
                                     radius="md"
                                     size="lg"
-                                    value={((currentStep) / (product[0].totalSteps + 4)) * 100}
+                                    value={((currentStep) / (product[0].TotalSteps + 4)) * 100}
 
                                 />
                             </>
