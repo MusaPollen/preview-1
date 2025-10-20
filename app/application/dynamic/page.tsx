@@ -145,9 +145,10 @@ export async function getSession(): Promise<{ apiResponse: string } | { error: s
 
             // Return decrypted plaintext as apiResponse
             return { apiResponse: plaintext || "(apiResponse not found)dummy-apiResponse" };
-        } catch (decErr: any) {
+        } catch (decErr: unknown) {
             console.error("Decryption error:", decErr);
-            return { error: `Decryption error: ${decErr.message || decErr}` };
+
+            return { error: `Decryption error: ${String(decErr)}` };
         }
 
     } catch (err: any) {
