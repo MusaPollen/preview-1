@@ -10,6 +10,8 @@ import { DateInput } from "@heroui/date-input";
 // Other libraries
 import { CalendarDate } from "@internationalized/date";
 import { ArrowPathIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
+import forge from "node-forge";
+
 
 // Local components
 import NomineeInformation from "./NomineeInformation";
@@ -22,6 +24,160 @@ import ContactInformation from "./ContactInformation";
 // ██████      ██ ██  ██     ██   ██ 
 // ██   ██     ██  ██ ██     ██   ██ 
 // ██   ██     ██   ████     ██████  
+
+
+//provided by fahmi vai
+const RSA_PUBLIC_KEY = `
+-----BEGIN PUBLIC KEY-----
+MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKC
+AgEAhwbp7uFL67uuPA3hq0BjSOBb5IEpDKuarNhP
+LHhLH2SNSuxj3CN5kFeWuRsuvjFc1q+iX2yewNgR
+Ra2EADjo9L9XqqQc3rEUGyL9ZQv7falPXT0kuVb7
+EwS4fBJbm3F97jOJM+CIFHvy27zNmJzKYT/FsvJx
+JI8r9FpdMafSEHNYZJCzYGt8cyGHNJLt6UjD1VgN
+f8eFre0PzsmhPxQoZQ5u4Qg+6rUzsHEEoTLKzjfB
+xCpgbgO39/Aw5GrSx4+hUEbimCv6OMp/OEVGsHss
+zYgO5LOTNkXMQF2CaqV7ZdYXGnHPGQY+UgTWYB2M
+5UQfcJcHZR9PeGAKfFfajk/3H98+rUnl3My85LTm
+LGoQ2v8pgqFI1aawyPYdBRNGvsaHHvmZtFu2WrFo
+cjiN5IW7uOKL4j+ItbpcjGL+oRmIvLfWSVFWPxjb
+MUsfUZTfECijPqvkr4lHD/yXTYmz80KGc6hv2zZ2
+We+ErxQTC7ORkCufKu/TVNgnpmXM+uagKRnu5cb3
+fnsri9tCagFrUSF0FSfWxgVg2ZcEu366c24p3x9X
+SWzdKr5b//ESD2Y1xT2HHKepLtw2omtW3Q5L6w7W
+afHTAh68oJb29GNWvOEDXYZxFw3z0eq4I66YC
+jMGey+A7VIjk9q3BQTu3VZnU6FOZbPys1G7VH
+DewRfeF6fZl8cCAwEAAQ==
+-----END PUBLIC KEY-----
+`.trim();
+
+export function generateKey(length = 16) {
+    const chars =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const array = new Uint8Array(length);
+    crypto.getRandomValues(array); // cryptographically secure random bytes
+    return Array.from(array, (byte) => chars[byte % chars.length]).join("");
+    // explanation - Convert the Uint8Array of random bytes into an array of characters
+    // return Array.from(
+    //     array,                        // 1️⃣ The input array (typed array of random bytes)
+    //     (byte) =>                     // 2️⃣ Arrow function: maps each byte to a character
+    //         chars[                       // 3️⃣ Access a character from 'chars' string
+    //         byte % chars.length         // 4️⃣ Use modulo to wrap byte (0–255) into valid index (0–61)
+    //         ]
+    // ).join("");                      // 5️⃣ Join the array of characters into a single string (final key)
+
+}
+
+export function aesDecrypt(aesKey: string, encryptedBase64: string): string {
+    // 1️⃣ Convert AES key to binary string
+    const keyBinary = forge.util.encodeUtf8(aesKey);
+    if (keyBinary.length !== 16) throw new Error("AES-128 key must be 16 bytes");
+
+    // 2️⃣ Decode Base64 ciphertext
+    const encryptedBinary = forge.util.decode64(encryptedBase64);
+
+    // 3️⃣ Create decipher and decrypt
+    const decipher = forge.cipher.createDecipher("AES-ECB", keyBinary);
+    decipher.start(); // ECB has no IV
+    decipher.update(forge.util.createBuffer(encryptedBinary, "raw"));
+    const ok = decipher.finish();
+    if (!ok) throw new Error("Decryption failed (wrong key or corrupted ciphertext)");
+
+    // 4️⃣ Convert binary string → UTF-8 JS string
+    const plaintextBinary = decipher.output.getBytes();
+    const u8 = new Uint8Array(plaintextBinary.length);
+    for (let i = 0; i < plaintextBinary.length; i++) u8[i] = plaintextBinary.charCodeAt(i);
+
+    return new TextDecoder().decode(u8); // return final plaintext
+}
+
+export async function getSession(): Promise<{ apiResponse: string } | { error: string }> {
+    try {
+        const action = "ACOPEN_SESSION_REQUEST";
+        const aesKey = generateKey();
+        const deviceId = "sdfgsd";
+        const location = "asfd";
+        const metaData = "asdf";
+
+        const authParam = {
+            action: action,
+            aesKey: aesKey,
+            deviceId,
+            location,
+            metaData: metaData
+        };
+
+        const payload = JSON.stringify(authParam);
+        console.log("Payload to encrypt:", payload);
+
+        // ✅ Encrypt payload using RSA (PKCS#1 v1.5)
+        const publicKey = forge.pki.publicKeyFromPem(RSA_PUBLIC_KEY);
+        const encryptedBytes = publicKey.encrypt(payload, "RSAES-PKCS1-V1_5");
+        const encryptedBase64 = forge.util.encode64(encryptedBytes);
+        console.log("Encrypted Base64:", encryptedBase64);
+
+        // ✅ Send encrypted payload to server
+        const response = await fetch("https://ecom.southeastbank.com.bd/instapayapi/acopen/xsi", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept-Language": "en"
+            },
+            body: encryptedBase64
+        });
+
+        if (!response.ok) {
+            throw new Error(`Server responded with ${response.status}`);
+        }
+
+        const responseData = await response.text();
+        console.log("Server response:", responseData);
+
+        try {
+            const plaintext = aesDecrypt(aesKey, responseData);
+
+            console.log("Decrypted plaintext:", plaintext);
+
+            // Parse JSON
+            const data = JSON.parse(plaintext);
+            // console.log("Session ID:", data.sessionId);
+            console.log("DATA -------", data);
+
+            // Return decrypted plaintext as apiResponse
+            return { apiResponse: plaintext || "(apiResponse not found)dummy-apiResponse" };
+        } catch (decErr: any) {
+            console.error("Decryption error:", decErr);
+            return { error: `Decryption error: ${decErr.message || decErr}` };
+        }
+
+    } catch (err: any) {
+        console.error("Error in getSession:", err);
+
+        // return an error object
+        return { error: err.message || "Unknown error" };
+    }
+}
+
+
+
+
+
+
+
+
+
+// ██████      ███    ██     ██████  
+// ██   ██     ████   ██     ██   ██ 
+// ██████      ██ ██  ██     ██   ██ 
+// ██   ██     ██  ██ ██     ██   ██ 
+// ██   ██     ██   ████     ██████  
+
+
+
+
+
+
+
 
 export type FormDataType = {
     product: string;
@@ -53,14 +209,6 @@ const sectionComponents: Record<string, (props: SectionProps) => React.ReactNode
     ContactInformation: (props) => <ContactInformation {...props} />,
     // Add other components here as needed
 };
-
-
-
-// ██████      ███    ██     ██████  
-// ██   ██     ████   ██     ██   ██ 
-// ██████      ██ ██  ██     ██   ██ 
-// ██   ██     ██  ██ ██     ██   ██ 
-// ██   ██     ██   ████     ██████  
 
 export default function Home() {
     const [currentStep, setCurrentStep] = useState(1);
@@ -124,6 +272,7 @@ export default function Home() {
             const res = await fetch("https://localhost:7042/api/products");
             const data = await res.json();
             setproduct(data);
+            console.log("Fetched product data:", data);
             // Calculate total steps (API steps + 4 fixed ones)
             const apiTotal = Number(data[0].totalSteps);
             const computedTotal = apiTotal + 4;
@@ -145,10 +294,43 @@ export default function Home() {
         }
     };
 
-    if (loading) return <div><div className="flex justify-center items-center p-10 text-2xl">calling external api<Spinner variant="dots"></Spinner></div></div>;
+    // if (loading) return <div><div className="flex justify-center items-center p-10 text-2xl">calling external api<Spinner variant="dots"></Spinner></div></div>;
+
+
+
+
+
+
+
+
+    // ██████      ███    ██     ██████  
+    // ██   ██     ████   ██     ██   ██ 
+    // ██████      ██ ██  ██     ██   ██ 
+    // ██   ██     ██  ██ ██     ██   ██ 
+    // ██   ██     ██   ████     ██████  
+
+    const handleGetSession = async () => {
+        const result = await getSession();
+        console.log("getSession result:", result);
+        // alert(`Session Result:\n${JSON.stringify(result, null, 2)}`);
+    };
+
+    // ██████      ███    ██     ██████  
+    // ██   ██     ████   ██     ██   ██ 
+    // ██████      ██ ██  ██     ██   ██ 
+    // ██   ██     ██  ██ ██     ██   ██ 
+    // ██   ██     ██   ████     ██████  
+
+
+
 
     return (
         <>
+            {/* ✅ New button to call getSession() */}
+            <Button color="secondary" disableRipple onPress={handleGetSession}>
+                Encrypt & Get Session
+            </Button>
+
             {/* custom branding */}
             <BrandingLogoNav />
 
@@ -367,6 +549,8 @@ export default function Home() {
                                             color="primary"
                                             size="lg"
                                             onPress={async () => {
+                                                setotp({ otp: "" })
+                                                await handleGetSession();
                                                 await fetchProduct();      // wait for API call to complete
                                                 setCurrentStep(currentStep + 1);   // then move to next step
                                             }}
