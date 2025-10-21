@@ -79,20 +79,32 @@ export default function Home() {
             {/* nav area */}
             <section className="flex flex-col sm:flex-row flex-wrap items-center justify-center p-0">
                 {/* <div className="w-1/2 aspect-[4/1]"> */}
-                <div className="w-1/2">
+                <div className="w-1/3">
                     <Image
                         alt="HeroUI hero Image"
                         src="/images/logo_sebl.png"
                         className="object-contain scale-70"
                     />
                 </div>
-                {/* hidden sm: (test by adding before..)*/}
-                {/* <div className="flex w-1/2 aspect-[4/1] justify-end"> */}
-                <div className="flex w-1/2 justify-end">
+
+                <div className="w-1/3 flex justify-center">
                     <Image
                         alt="HeroUI hero Image"
                         src="/images/instapay_name.png"
+                        className="object-contain scale-70"
+                    />
+                </div>
+
+
+
+                {/* hidden sm: (test by adding before..)*/}
+                {/* <div className="flex w-1/2 aspect-[4/1] justify-end"> */}
+                <div className="flex w-1/3 justify-end">
+                    <Image
+                        alt="HeroUI hero Image"
+                        src="/images/bida.svg"
                         className="h-auto w-auto scale-70"
+                        radius="none"
                     />
                 </div>
             </section>
