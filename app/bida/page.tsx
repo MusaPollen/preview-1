@@ -108,11 +108,12 @@ export default function Home() {
             </section>
             {/* nav area */}
 
-            <div className="max-w-3xl mx-auto p-1 space-y-1">
+            {/* <div className="max-w-3xl mx-auto p-1 space-y-1"> */}
+            <div className="max-w-5xl mx-auto p-1 space-y-1">
                 <Card isFooterBlurred className="bg-white/40 backdrop-blur-none" radius='lg'>
                     <CardHeader className="flex justify-center">
-                        <span className="text-3xl text-purple-900 font-bold">
-                            BIDA
+                        <span className="font-liter text-2xl text-red-700 font-bold">
+                            Application For New Bank Account
                         </span>
                     </CardHeader>
                     <CardBody>
@@ -124,8 +125,8 @@ export default function Home() {
                                 track: "drop-shadow-md border border-default",
                                 indicator: "bg-linear-to-r from-blue-800 to-pink-600",
                             }}
-                            radius="md"
-                            size="lg"
+
+                            size="md"
                             value={(step / totalSteps) * 100}
                         />
 
@@ -135,40 +136,18 @@ export default function Home() {
 
                         {/* steps.. */}
                         <div className="flex flex-wrap justify-center items-center p-4">
-                            <span className={`font-bold ${step >= 1 ? "text-purple-800" : "text-gray-400"}`}>section</span>
+                            <span className={`font-liter ${step >= 1 ? "text-red-700" : "text-zinc-300"}`}>1. Bank Information</span>
                             <span className="mx-3">➡️</span>
-                            <span className={`font-bold ${step >= 2 ? "text-purple-800" : "text-gray-400"}`}>section</span>
+                            <span className={`font-liter ${step >= 2 ? "text-red-700" : "text-zinc-300"}`}>2. Institutional Information</span>
                             <span className="mx-3">➡️</span>
-                            <span className={`font-bold ${step >= 3 ? "text-purple-800" : "text-gray-400"}`}>section</span>
+                            <span className={`font-liter ${step >= 3 ? "text-red-700" : "text-zinc-300"}`}>3. Personal Information</span>
                             <span className="mx-3">➡️</span>
-                            <span className={`font-bold ${step >= 4 ? "text-purple-800" : "text-gray-400"}`}>section</span>
+                            <span className={`font-liter ${step >= 4 ? "text-red-700" : "text-zinc-300"}`}>4. Declaration & Submit</span>
                             <span className="mx-3">➡️</span>
-                            <span className={`font-bold ${step >= 5 ? "text-purple-800" : "text-gray-400"}`}>section</span>
+                            <span className={`font-liter ${step >= 5 ? "text-red-700" : "text-zinc-300"}`}>section</span>
                             <span className="mx-3">➡️</span>
-                            <span className={`font-bold ${step >= 6 ? "text-purple-800" : "text-gray-400"}`}>section</span>
+                            <span className={`font-liter ${step >= 6 ? "text-red-700" : "text-zinc-300"}`}>section</span>
                         </div>
-
-
-
-
-
-                        {/* alert trigger */}
-                        {showAlert && (
-                            <Alert
-                                color="success"
-                                isVisible={showAlert}
-                                onVisibleChange={(visible) => setShowAlert(visible)}
-                                className="mt-4"
-                            >
-                                Form submitted successfully!
-                            </Alert>
-                        )}
-
-
-
-
-
-
 
 
 
@@ -177,40 +156,19 @@ export default function Home() {
 
                         {/* Step 1 Form */}
                         {step === 1 && (
-                            <div className="space-y-4">
-                                <br></br>
-                                <p className="flex justify-center text-3xl font-bold">Let&apos;s Get Started! 🚀</p>
-                                <p className="flex justify-center text-xl">Enter your phone number to begin your SPARK journey</p>
+                            <div className="space-y-2">
+                                <p className="flex justify-center font-liter text-xl font-bold">Bank Information</p>
+                                <p className="flex justify-center font-liter text-xl font-bold">Account Info</p>
 
 
-                                <Input
-                                    isClearable
-                                    name="phone"
-                                    radius="none"
-                                    value={formData.phone}
-                                    label="Enter Phone Number"
-                                    variant="faded"
-                                    type="tel"
-                                    maxLength={11}
-                                    isInvalid={formData.phone.length > 0 && formData.phone.length !== 11}
-                                    errorMessage="Phone number must be exactly 11 digits."
-                                    onValueChange={(value) => {
-                                        const onlyDigits = value.replace(/\D/g, "");
-                                        setFormData({ ...formData, phone: onlyDigits });
-                                    }}
-                                />
+
 
 
                                 <Button
                                     color="primary"
                                     className="w-full"
-                                    isDisabled={!formData.phone || formData.phone.length !== 11}
                                     onPress={() => {
-                                        setShowSpinner(true);
-                                        setTimeout(() => {
-                                            setShowSpinner(false);
-                                            setStep(2);
-                                        }, 1500);
+                                        setStep(2);
                                     }}
                                 >
                                     Send OTP
@@ -346,9 +304,6 @@ export default function Home() {
 
 
 
-
-
-
                         {/* Step 4 Form */}
                         {step === 4 && (
                             <div className="space-y-4">
@@ -381,113 +336,8 @@ export default function Home() {
                                 </div>
                             </div>
                         )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        {/* Step 5 Form */}
-                        {step === 5 && (
-                            <div className="space-y-4">
-                                <Input
-                                    label="section5input1"
-                                    name="section5input1"
-                                    value={formData.section5input1}
-                                    onChange={handleChange}
-                                />
-                                <Input
-                                    label="section5input2"
-                                    name="section5input2"
-                                    value={formData.section5input2}
-                                    onChange={handleChange}
-                                />
-
-                                <div className="flex justify-between">
-                                    <Button color="secondary" onPress={() => setStep(4)}>
-                                        ◁ Go Back
-                                    </Button>
-                                    <Button
-                                        color="primary"
-                                        onPress={() => {
-                                            setStep(6);
-                                        }}
-                                    >
-                                        Next ▷
-                                    </Button>
-                                </div>
-                            </div>
-                        )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        {/* Step 6 Form */}
-                        {step === 6 && (
-                            <div className="space-y-4">
-                                <Input
-                                    label="section6input1"
-                                    name="section6input1"
-                                    value={formData.phone || ""}
-                                    onChange={handleChange}
-                                />
-                                <Input
-                                    label="section6input2"
-                                    name="section6input2"
-                                    value={formData.phone || ""}
-                                    onChange={handleChange}
-                                />
-                                <div className="flex justify-between">
-                                    <Button color="secondary" className="flex-1" size="lg" radius="full" onPress={() => setStep(5)}>
-                                        ◁ Go Back
-                                    </Button>
-                                    <Button className="flex-1" color="danger" variant="ghost" radius="full" size="lg" onPress={handleSubmit}>
-                                        ✅ Submit
-                                    </Button>
-                                </div>
-                            </div>
-                        )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     </CardBody>
                 </Card>
-
-
             </div>
             <br></br>
 

@@ -3,3 +3,13 @@
 /* Note: You may need to change the path to fit your project structure */
 @source '../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @custom-variant dark (&:is(.dark *));
+
+
+/* Add to your existing CSS file */
+.geist-sans {
+  font-family: var(--font-geist-sans);
+}
+
+.font-liter {
+  font-family: var(--font-liter), serif;
+}
